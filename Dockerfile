@@ -3,6 +3,7 @@ FROM python:2.7
 # Apt-get dependencies
 RUN apt-get update -y && \
     apt-get install -y postgresql && \
+    apt-get install -y sudo && \
     apt-get clean
 
 # Install requirements first (so they get cached between builds)
@@ -24,13 +25,19 @@ WORKDIR /app/
 ENV PYTHONPATH=/app/
 ENV DJANGO_SETTINGS_MODULE=tbx.settings.docker
 
-# Use postgres user for database access
-RUN perl -pi -e "s/^(local\s+all\s+postgres\s+)peer$/\1trust/" /etc/postgresql/9.4/main/pg_hba.conf
-ENV PGUSER=postgres
+# Add unix user for app
+RUN adduser --disabled-password --gecos "" torchbox
+RUN chown -R torchbox:torchbox /app
+RUN echo "torchbox ALL=NOPASSWD: /etc/init.d/postgresql" >> /etc/sudoers
+
+# Add database user for app
+RUN /etc/init.d/postgresql start && su - postgres -c "createuser -s torchbox"
+
+USER torchbox
 
 # Create database and compress static files
 # All this needs to happen with postgres running
-RUN /etc/init.d/postgresql start && \
+RUN sudo /etc/init.d/postgresql start && \
     # Sleep for a bit to make sure postgres is running
     sleep 3 && \
 
@@ -45,5 +52,5 @@ RUN /etc/init.d/postgresql start && \
     django-admin.py compress --force && \
     python -m whitenoise.gzip /app/static/
 
-CMD /etc/init.d/postgresql start && uwsgi --ini uwsgi.ini
+CMD sudo /etc/init.d/postgresql start && uwsgi --ini uwsgi.ini
 EXPOSE 5000
