@@ -20,6 +20,7 @@ ADD conf/settings.py /app/tbx/settings/docker.py
 ADD conf/wsgi.py /app/tbx/wsgi_docker.py
 ADD conf/uwsgi.ini /app/uwsgi.ini
 ADD data/data.json /app/data.json
+ADD data/superuser.json /app/superuser.json
 ADD data/media/ /app/media/
 WORKDIR /app/
 
@@ -50,6 +51,7 @@ RUN sudo /etc/init.d/postgresql start && \
     psql torchbox -c "DELETE FROM wagtailcore_site;" && \
     psql torchbox -c "DELETE FROM wagtailcore_page WHERE id=2;" && \
     django-admin.py loaddata data.json && \
+    django-admin.py loaddata superuser.json && \
 
     # Collect and compress static files
     django-admin.py collectstatic --noinput && \
