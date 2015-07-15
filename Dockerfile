@@ -20,6 +20,7 @@ ADD conf/settings.py /app/tbx/settings/docker.py
 ADD conf/wsgi.py /app/tbx/wsgi_docker.py
 ADD conf/uwsgi.ini /app/uwsgi.ini
 ADD data/data.json /app/data.json
+ADD data/media/ /app/media/
 WORKDIR /app/
 
 # Environment variables
