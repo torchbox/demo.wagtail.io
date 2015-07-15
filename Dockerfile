@@ -19,6 +19,7 @@ ADD wagtail-torchbox /app/
 ADD conf/settings.py /app/tbx/settings/docker.py
 ADD conf/wsgi.py /app/tbx/wsgi_docker.py
 ADD conf/uwsgi.ini /app/uwsgi.ini
+ADD data/data.json /app/data.json
 WORKDIR /app/
 
 # Environment variables
@@ -45,7 +46,9 @@ RUN sudo /etc/init.d/postgresql start && \
     createdb torchbox && \
     django-admin.py migrate --noinput && \
     django-admin.py createcachetable && \
-#   django-admin.py load_initial_data && \
+    psql torchbox -c "DELETE FROM wagtailcore_site;" && \
+    psql torchbox -c "DELETE FROM wagtailcore_page WHERE id=2;" && \
+    django-admin.py loaddata data.json && \
 
     # Collect and compress static files
     django-admin.py collectstatic --noinput && \
