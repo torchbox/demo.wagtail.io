@@ -8,11 +8,11 @@ RUN apt-get update -y && \
 
 # Install requirements first (so they get cached between builds)
 ADD /wagtail-torchbox/requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-RUN pip install whitenoise uwsgi
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir whitenoise uwsgi
 
 # These requirements are required by the project but not in requirements.txt
-RUN pip install django-celery gunicorn
+RUN pip install --no-cache-dir django-celery gunicorn
 
 # Add code into container
 ADD wagtail-torchbox /app/
