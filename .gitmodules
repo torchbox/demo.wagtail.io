@@ -1,0 +1,3 @@
+[submodule "wagtail-torchbox"]
+	path = wagtail-torchbox
+	url = git@github.com:torchbox/wagtail-torchbox.git
