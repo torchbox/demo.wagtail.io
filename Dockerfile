@@ -1,3 +1,5 @@
+# PLEASE READ THE WARNING IN "readme.md" BEFORE COPYING ANYTHING FROM THIS FILE
+
 FROM python:2.7
 
 # Apt-get dependencies
