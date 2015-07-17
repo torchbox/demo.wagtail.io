@@ -44,4 +44,4 @@ In hosting, run "docker rm -f demowagtail" and rerun the above command
 Warning
 -------
 
-Running PostgreSQL and bundling media into the base image is considered bad practise by the Docker community. Avoid copying this unless you know what you're doing!
+Running PostgreSQL in the same container as the app and bundling media into the base image are both considered bad practise by the Docker community. Avoid copying this unless you know what you're doing!
