@@ -16,4 +16,4 @@ WAGTAILSEARCH_BACKENDS = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-ALLOWED_HOSTS = ['localhost', 'demo.wagtail.io']
+ALLOWED_HOSTS = ['localhost', 'demo.wagtail.io', 'demowagtail.kaed.uk']
