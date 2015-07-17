@@ -1,7 +1,7 @@
 demo.wagtail.io
 ===============
 
-This repository contains configuration and data for the demo.wagtail.io site. This is an instance of (torchbox.com)[https://github.com/torchbox/wagtail-torchbox] which runs within a Docker container.
+This repository contains configuration and data for the demo.wagtail.io site. This is an instance of [torchbox.com](https://github.com/torchbox/wagtail-torchbox) which runs within a Docker container.
 
 Reseting the database/media is achieved by putting them inside the Docker image so any changes made while the container is running will be reverted whenever the container is re created.
 
@@ -38,12 +38,10 @@ For hosting:
 To reset the container back to its initial state, just recreate it:
 
 In development, press Ctrl+C and rerun the above command
+
 In hosting, run "docker rm -f demowagtail" and rerun the above command
 
 Warning
 -------
 
-The Docker configuration in this project intentionally breaks a couple of best-practises. Please don't copy them unless you know what you're doing!
-
-1) It runs PostgreSQL in the application container
-2) It bundles media in the base image
+Running PostgreSQL and bundling media into the base image is considered bad practise by the Docker community. Avoid copying this unless you know what you're doing!
