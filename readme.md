@@ -18,7 +18,7 @@ Run the following command to build the image:
     docker build -t demowagtail .
 
 
-This will pull down the python:2.7 image (approx 700MB) and execute the instructions in the Dockerfile on it.
+This will pull down the python:2.7 image (approx 700MB), execute the instructions in the Dockerfile on it and tag the new image as "demowagtail".
 
 Running it
 ----------
