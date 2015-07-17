@@ -2962,7 +2962,7 @@
 {
     "fields": {
         "root_page": 5,
-        "hostname": "torchbox.com",
+        "hostname": "demo.wagtail.io",
         "port": 80,
         "is_default_site": true
     },
