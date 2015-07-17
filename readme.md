@@ -8,6 +8,11 @@ Reseting the database/media is achieved by putting them inside the Docker image 
 Building the image
 ------------------
 
+After you've checked out the code locally, run the following commands to fetch the site code (which is linked with a git submodule):
+
+    git submodule init
+    git submodule update
+
 Run the following command to build the image:
 
     docker build -t demowagtail .
