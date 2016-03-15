@@ -39,6 +39,8 @@ RUN echo "torchbox ALL=NOPASSWD: /etc/init.d/postgresql" >> /etc/sudoers
 RUN /etc/init.d/postgresql start && su - postgres -c "createuser -s torchbox"
 
 USER torchbox
+ENV APP_NAME=torchbox
+ENV SECRET_KEY=foo
 
 # Create database and compress static files
 # All this needs to happen with postgres running
