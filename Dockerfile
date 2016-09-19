@@ -11,10 +11,7 @@ RUN apt-get update -y && \
 # Install requirements first (so they get cached between builds)
 ADD /wagtail-torchbox/requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir whitenoise uwsgi
-
-# These requirements are required by the project but not in requirements.txt
-RUN pip install --no-cache-dir django-celery gunicorn
+RUN pip install --no-cache-dir uwsgi
 
 # Add code into container
 ADD wagtail-torchbox /app/
@@ -24,6 +21,7 @@ ADD conf/uwsgi.ini /app/uwsgi.ini
 ADD data/data.json /app/data.json
 ADD data/superuser.json /app/superuser.json
 ADD data/media/ /app/media/
+ADD public /app/public
 WORKDIR /app/
 
 # Environment variables
@@ -60,7 +58,7 @@ RUN sudo /etc/init.d/postgresql start && \
     # Collect and compress static files
     django-admin.py collectstatic --noinput && \
     django-admin.py compress --force && \
-    python -m whitenoise.gzip /app/static/
+    python -m whitenoise.compress /app/static/
 
 CMD sudo /etc/init.d/postgresql start && uwsgi --ini uwsgi.ini
 EXPOSE 5000

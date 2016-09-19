@@ -17,3 +17,5 @@ WAGTAILSEARCH_BACKENDS = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ALLOWED_HOSTS = ['localhost', 'demo.wagtail.io', 'demowagtail.kaed.uk']
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
